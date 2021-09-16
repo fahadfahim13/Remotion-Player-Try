@@ -1,23 +1,31 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { Player, PlayerRef} from '@remotion/player'
 import VideoComponent from '../Components/VideoComponent'
 
 
 
-const MyComposition = () => {
+const MyComposition = (props: {play: boolean}) => {
     return (
-        <VideoComponent />
+        <VideoComponent playVideo={props.play} />
     )
 }
 
 function PlayerComponent() {
 
     const playerRef = useRef<PlayerRef>(null);
+    const [play, setPlay] = useState(false)
     
     useEffect(() => {
         if (playerRef.current) {
-          console.log(playerRef.current.getCurrentFrame())
+            playerRef.current.addEventListener('play', () => {
+                setPlay(true)
+              })
+
+            playerRef.current.addEventListener('pause', () => {
+                setPlay(false)
+              })
         }
+        
       }, [])
 
     return (
@@ -27,7 +35,7 @@ function PlayerComponent() {
             compositionWidth={600}
             compositionHeight={300}
             fps={30}
-            component={MyComposition}
+            component={() => MyComposition({play})}
             controls={true}
             showVolumeControls={true}
             allowFullscreen={true}
