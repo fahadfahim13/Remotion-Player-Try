@@ -1,30 +1,35 @@
-import React from 'react'
+import React, {CSSProperties} from 'react'
 import video from '../../static/1.mp4'
 import { Video } from 'remotion'
 import { AnimateKeyframes } from 'react-simple-animate'
-import Rive from 'rive-react';
-import { useRive, useStateMachineInput } from 'rive-react';
-// import {Animated} from "react-animated-css";
-// import basketball from '../../static/basketball.riv'
+import {animated, useSpring} from "react-spring";
 
 
-
-function VideoComponent(props: {playVideo: boolean}) {
+function VideoComponent(props: { playVideo: boolean }) {
 
     const { playVideo } = props
-    const STATE_MACHINE_NAME = 'button';
-    const INPUT_NAME = 'onClick';
 
-    const { RiveComponent, rive } = useRive({
-        src: "../../static/basketball.riv",
-        stateMachines: STATE_MACHINE_NAME,
-        autoplay: true,
-    });
-    const onClickInput = useStateMachineInput(
-        rive,
-        STATE_MACHINE_NAME,
-        INPUT_NAME
-    );
+    const videoStyle = {
+        position: 'absolute',
+        top: '0px',
+        left: '0px',
+        zIndex: -1,
+        width: '100%'
+    } as CSSProperties
+
+    const boxStyle = useSpring({
+        loop: playVideo,
+        // loop: false,
+        from: { rotateY: 0 },
+        to: { rotateY: 180 },
+    })
+
+    const ctaStyle = useSpring({
+        loop: { reverse: playVideo },
+        from: {x: -600 },
+        to: { x: 0},
+        config: { duration: 500, delay: 2000 },
+    })
 
     return (
         <AnimateKeyframes
@@ -33,24 +38,37 @@ function VideoComponent(props: {playVideo: boolean}) {
             iterationCount="infinite"
             // direction="alternate-reverse"
             direction="alternate"
-            duration={0.3}
-            keyframes={[
-                'transform: rotateX(0) rotateY(-90deg) rotateZ(0)',
-                'transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg)',
-            ]}
+            // duration={30 * 5}
+            keyframes={[]}
         >
-        {/* <Animated animationIn="flipInY" animationOut="flipOutY" animationInDuration={1000} animationOutDuration={1000} isVisible={true}> */}
             <Video
                 src={video}
                 startFrom={0} // if video is 30fps, then it will start at 2s
-                endAt={30 * 2} // if video is 30fps, then it will end at 4s
-                style={{width: '100%'}}
+                endAt={30 * 10} // if video is 30fps, then it will end at 4s
+                style={videoStyle}
                 // style={{...style, width: '100%'}}
                 disableRemotePlayback
             />
-            <RiveComponent onClick={() => onClickInput?.fire()} />
+            <animated.div
+                style={{
+                    width: 80,
+                    height: 80,
+                    backgroundColor: '#46e891',
+                    borderRadius: 16,
+                    ...boxStyle,
+                }}
+            />
 
-         {/* </Animated> */}
+            <animated.div
+                style={{
+                    width: 600,
+                    height: 50,
+                    backgroundColor: '#46e891',
+                    borderRadius: 0,
+                    ...ctaStyle,
+                }}
+            />
+
         </AnimateKeyframes>
     )
 }
