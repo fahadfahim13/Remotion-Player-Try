@@ -3,6 +3,7 @@ import video from '../../static/1.mp4'
 import { Video } from 'remotion'
 import { AnimateKeyframes } from 'react-simple-animate'
 import {animated, useSpring} from "react-spring";
+import FlowImage from '../../static/flow 1.png'
 
 
 function VideoComponent(props: { playVideo: boolean }) {
@@ -25,7 +26,7 @@ function VideoComponent(props: { playVideo: boolean }) {
     })
 
     const ctaStyle = useSpring({
-        loop: { reverse: playVideo },
+        // loop: { reverse: playVideo },
         from: {x: -600 },
         to: { x: 0},
         config: { duration: 500, delay: 2000 },
@@ -51,13 +52,11 @@ function VideoComponent(props: { playVideo: boolean }) {
             />
             <animated.div
                 style={{
-                    width: 80,
-                    height: 80,
-                    backgroundColor: '#46e891',
-                    borderRadius: 16,
                     ...boxStyle,
                 }}
-            />
+            >
+                <img src={FlowImage} style={{width: 200, height: 200, left: 0, top: 0}} alt="flowcode" />
+            </animated.div>
 
             <animated.div
                 style={{

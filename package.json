@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ffmpeg/core": "^0.10.0",
+    "@ffmpeg/ffmpeg": "^0.10.1",
     "@reduxjs/toolkit": "^1.6.1",
     "@remotion/player": "^2.3.3",
     "@testing-library/jest-dom": "^4.2.4",

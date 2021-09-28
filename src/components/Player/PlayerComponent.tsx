@@ -1,7 +1,6 @@
 import React, {Fragment, useEffect, useRef, useState} from 'react'
 import { Player, PlayerRef} from '@remotion/player'
 import VideoComponent from '../Components/VideoComponent'
-import AnimatedImage from "../Components/AnimatedImage";
 
 
 
@@ -28,6 +27,13 @@ function PlayerComponent() {
             playerRef.current.addEventListener('pause', () => {
                 setPlay(false)
               })
+
+            playerRef.current.addEventListener('seeked', (e) => {
+                console.log('seeked to ' + e.detail.frame)
+            })
+            playerRef.current.addEventListener('timeupdate', (e) => {
+                console.log('time has updated to ' + e.detail.frame)
+            })
         }
       }, [])
 
