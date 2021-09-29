@@ -3,7 +3,6 @@ import { Player, PlayerRef} from '@remotion/player'
 import VideoComponent from '../Components/VideoComponent'
 
 
-
 const MyComposition = (props: {play: boolean}) => {
     return (
         <Fragment>
