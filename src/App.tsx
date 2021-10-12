@@ -1,15 +1,16 @@
 import React from 'react';
 import './App.css';
-import PlayerComponent from './components/Player/PlayerComponent';
+// import PlayerComponent from './components/Player/PlayerComponent';
 import 'antd/dist/antd.css';
-import FfmpegConnect from "./components/ffmpeg/ffmpeg_connect";
+import Base from "./components/Konva/Base";
 
 function App() {
 
   return (
-    <div className="App">
-      <PlayerComponent />
-        <FfmpegConnect />
+    <div className="App" style={{backgroundColor: 'darkgray', width: '100%', height: '100%'}}>
+      {/*<PlayerComponent />*/}
+        <Base />
+        {/*<FfmpegConnect />*/}
     </div>
   );
 }
