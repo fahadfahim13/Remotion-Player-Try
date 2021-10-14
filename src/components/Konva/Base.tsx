@@ -1,12 +1,16 @@
-import React, {useReducer, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Stage, Layer, Text} from 'react-konva';
-import ColorRect from "./ColorRect";
+// import ColorRect from "./ColorRect";
 import BackgroundRect from "./BackgroundRect";
 import VideoImage from "./MediaPlay/VideoImage";
 
 
 function Base() {
     const [size, setSize] = useState({ width: 2500, height: 2500 })
+
+    useEffect(() => {
+        setSize({ width: 1000, height: 1500 })
+    })
 
     return (
         <div style={{ background: 'red', border: '2px solid red' }}>
